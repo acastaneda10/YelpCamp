@@ -150,6 +150,10 @@ app.get('/', (req, res) => {
     res.render('home')
 })
 
+app.get('/status', (req, res) => {
+    res.sendStatus(200);
+})
+
 app.all('*', (req, res, next) => {
     next(new ExpressError('Page Not Found', 404))
 })
