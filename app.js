@@ -22,7 +22,7 @@ const reviewRoutes = require('./routes/reviews');
 const userRoutes = require('./routes/users');
 const MongoStore = require('connect-mongo');
 
-const dbUrl = 'mongodb://localhost:27017/yelpcamp' //process.env.DB_URL;
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelpcamp';
 mongoose.connect(dbUrl);
 
 const db = mongoose.connection;
@@ -43,12 +43,13 @@ app.use(methodOverride('_method'))
 app.use(express.static(path.join(__dirname,'public'))) // This sets the public folder to be served as static content
 app.use(mongoSanitize())
 
+const secret = process.env.SESSION_SECRET || 'thisshouldbeasecret';
 
 const store = MongoStore.create({
     mongoUrl: dbUrl,
     touchAfter: 24 * 60 * 60,
     crypto: {
-        secret: process.env.SESSION_SECRET // This makes the session: object encyrpted 
+        secret // This makes the session: object encyrpted 
     }
 });
 
@@ -59,7 +60,7 @@ store.on('error', function(e){
 const sessionConfig = {
     store,
     name: '_session',
-    secret: process.env.SESSION_SECRET,
+    secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -159,6 +160,7 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render('error', {err});
 })
 
-app.listen(3000, () => {
-    console.log('Serving on port 3000')
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`Serving on port ${port}`)
 })
