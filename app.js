@@ -14,12 +14,11 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');
 const helmet = require('helmet');
-
 const mongoSanitize = require('express-mongo-sanitize');
-
 const campgroundRoutes = require('./routes/campgrounds');
 const reviewRoutes = require('./routes/reviews');
 const userRoutes = require('./routes/users');
+
 const MongoStore = require('connect-mongo');
 
 const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelpcamp';
@@ -41,7 +40,9 @@ app.set('views', path.join(__dirname, 'views'))
 app.use(express.urlencoded({extended: true}))
 app.use(methodOverride('_method'))
 app.use(express.static(path.join(__dirname,'public'))) // This sets the public folder to be served as static content
-app.use(mongoSanitize())
+app.use(mongoSanitize({
+    replaceWith: '_'
+}))
 
 const secret = process.env.SESSION_SECRET || 'thisshouldbeasecret';
 
@@ -165,6 +166,7 @@ app.use((err, req, res, next) => {
 })
 
 const port = process.env.PORT || 3000;
+
 app.listen(port, () => {
     console.log(`Serving on port ${port}`)
 })
