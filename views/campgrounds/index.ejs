@@ -1,31 +1,68 @@
 <% layout('/layouts/boilerplate') %> 
+<link rel="stylesheet" href="/stylesheets/stars.css">
+
 <div id="cluster-map" class="mb-3"></div>
+<div id="campgroundsList" class="nav-offset"></div>
 <h1>All Campgrounds</h1>
-<% for( let campground of campgrounds ) { %>
-<div class="card mb-3">
-    <div class="row">
-        <div class="col-md-4">
-            <%if(campground.images.length){%> 
-            <img src="<%=campground.images[0].url%>" alt="" class="img-fluid">
-            <% } else { %> 
-            <img src="https://res.cloudinary.com/dwmkahbpb/image/upload/v1670111404/YelpCamp/qptzpmioyyxp5jyqga42.jpg" alt="" class="img-fluid">
-            <% } %> 
-        </div>
-        <div class="col-md-8">
-            <div class="card-body">
-                <h5 class="card-title"><%=campground.title %></h5>
-                <p class="card-text"><%=campground.description %></p>
-                <p class="card-text">
-                    <small class="text-muted"><%= campground.location %></small>
-                </p>
-                <a href="/campgrounds/<%=campground._id%>" class="btn btn-primary">View <%= campground.title %> </a>
-            </div>
-        </div>
+<h3>Filter By Amenities</h3>
+<form action="/campgrounds" method="GET" class="mb-3" enctype="multipart/form-data">
+    <div class="form-check form-check-inline mb-1">
+        <input class="form-check-input filter" type="checkbox" id="bathrooms" name="bathrooms" value="true" <%= query.bathrooms ? 'checked' : '' %>>
+        <label class="form-check-label" for="bathrooms">
+            <%-icons.bathrooms%>Bathrooms
+        </label>
     </div>
+    <div class="form-check form-check-inline mb-1">
+        <input class="form-check-input filter" type="checkbox" id="electricity" name="electricity" value="true"<%= query.electricity ? 'checked' : '' %>>
+        <label class="form-check-label" for="electricity">
+            <%-icons.electricity%>Electricity
+        </label>
+    </div>
+    <div class="form-check form-check-inline mb-1">
+        <input class="form-check-input filter" type="checkbox" id="water" name="water" value="true"<%= query.water ? 'checked' : '' %>>
+        <label class="form-check-label" for="water">
+            <%-icons.water%>Drinking Water
+        </label>
+    </div>
+    <div class="form-check form-check-inline mb-1">
+        <input class="form-check-input filter" type="checkbox" id="shop" name="shop" value="true"<%= query.shop ? 'checked' : '' %>>
+        <label class="form-check-label" for="shop">
+            <%-icons.shop%>Shop
+        </label>
+    </div>
+    <div class="form-check form-check-inline mb-1">
+        <input class="form-check-input filter" type="checkbox" id="rvHookup" name="rvHookup" value="true"<%= query.rvHookup ? 'checked' : '' %>>
+        <label class="form-check-label" for="rvHookup">
+            <%-icons.rvHookup%>RV Hookup
+        </label>
+    </div>
+    <div class="form-check form-check-inline mb-1">
+        <input class="form-check-input filter" type="checkbox" id="petFriendly" name="petFriendly" value="true"<%= query.petFriendly ? 'checked' : '' %>>
+        <label class="form-check-label" for="petFriendly">
+            <%-icons.petFriendly%>Pet Friendly
+        </label>
+    </div>
+    <button id = "resetFilters" type="button" class="btn btn-warning">Reset Filters</button>
+    
+    <h3 class="mt-2">Search By Campground Name</h3>
+    <div class="form-group mb-3">
+      <label for="name">Campground Name </label>
+      <input class="form-control" type="text" name="name" id="name" placeholder="Optional" value="<%= query.name ? query.name : '' %>" autocomplete="off">
+    </div>
+    <div class="d-grid col-6 mx-auto">
+        <button class="btn btn-success">Filter and Search</button>
+    </div>
+</form>
+<h4><%= campgrounds.length %> Results</h4>
+<div id="campgroundList">
+<!-- /public/javascripts/indexPage.js will create and add campground cards to this div -->
 </div>
-<% } %>
+<div class="d-grid col-6 mx-auto mb-3">
+    <button id="loadMore" class="btn btn-primary">Load More</button>
+</div>
 <script>
     const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
     const campgrounds = {features: <%- JSON.stringify(campgrounds) %>};
 </script>
+<script src="/javascripts/indexPage.js"></script>
 <script src="/javascripts/clusterMap.js"></script>

@@ -114,6 +114,7 @@ app.use(
                 "data:",
                 "https://res.cloudinary.com/dwmkahbpb/", //SHOULD MATCH YOUR CLOUDINARY ACCOUNT! 
                 "https://images.unsplash.com/",
+                "https://cdn-icons-png.flaticon.com",
             ],
             fontSrc: ["'self'", ...fontSrcUrls],
         },

@@ -28,7 +28,15 @@ module.exports.campgroundSchema = Joi.object({
         price: Joi.number().required().min(0),
         // image: Joi.string().required(),
         location: Joi.string().required().escapeHTML(),
-        description: Joi.string().required().escapeHTML()
+        description: Joi.string().required().escapeHTML(),
+        options: {
+            bathrooms: Joi.boolean(),
+            electricity: Joi.boolean(),
+            water: Joi.boolean(),
+            shop: Joi.boolean(),
+            rvHookup: Joi.boolean(),
+            petFriendly: Joi.boolean()
+        }
     }).required(),
     deleteImages: Joi.array()
 });

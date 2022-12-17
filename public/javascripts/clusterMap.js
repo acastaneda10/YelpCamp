@@ -15,8 +15,6 @@ map.on('load', () => {
     // add the point_count property to your source data.
     map.addSource('campgrounds', {
         type: 'geojson',
-        // Point to GeoJSON data. This example visualizes all M1.0+ campgrounds
-        // from 12/22/15 to 1/21/16 as logged by USGS' Earthquake hazards program.
         data: campgrounds,
         cluster: true,
         clusterMaxZoom: 14, // Max zoom to cluster points on
@@ -114,7 +112,7 @@ map.on('load', () => {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
         }
 
-        new mapboxgl.Popup()
+        new mapboxgl.Popup({maxWidth: '142px'})
             .setLngLat(coordinates)
             .setHTML(`${popupText}`)
             .addTo(map);

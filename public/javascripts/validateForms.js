@@ -16,4 +16,4 @@
         form.classList.add('was-validated')
         }, false)
     })
-    })()
+})(); // Because the function was not named, it is called with () immediately after definition. 

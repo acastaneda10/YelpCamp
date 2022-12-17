@@ -6,11 +6,15 @@
         <div class="card mb-3">
             <div id="campgroundCarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
+                    <% if(campground.images.length > 0) { %>
                     <% campground.images.forEach((image, i) => { %> 
-                  <div class="carousel-item <%= i === 0 ? 'active' : '' %> ">
-                    <img src="<%=image.showsize%>" class="card-img-top" alt="">
-                  </div>
-                  <% }) %> 
+                    <div class="carousel-item <%= i === 0 ? 'active' : '' %> ">
+                        <img src="<%=image.showImage%>" class="card-img-top" alt="">
+                    </div>
+                    <% }) %> 
+                    <% } else {%>
+                        <img src="https://res.cloudinary.com/dwmkahbpb/image/upload/w_1000,ar_1:1,c_fill/v1671242036/YelpCamp/No-Image-Placeholder_oofa0i.png" class="card-img-top" alt="">
+                    <% } %>
                 </div>
                 <% if(campground.images.length > 1) { %> 
                 <button class="carousel-control-prev" type="button" data-bs-target="#campgroundCarousel" data-bs-slide="prev">
@@ -21,7 +25,8 @@
                   <span class="carousel-control-next-icon" aria-hidden="true"></span>
                   <span class="visually-hidden">Next</span>
                 </button>
-                <% } %> 
+                <% } %>
+
               </div>
             <div class="card-body">
                 <h5 class="card-title"><%= campground.title %></h5>
@@ -33,6 +38,7 @@
                 </div>
             </div>
             <ul class="list-group list-group-flush">
+                <li class="list-group-item"><%- campground.optionsIcons %> </li>
                 <li class="list-group-item"><%= campground.description %></li>
                 <li class="list-group-item text-muted"><%= campground.location %></li>
                 <li class="list-group-item">$<%= campground.price %> / night</li>
@@ -55,10 +61,6 @@
         <h2>Leave A Review!</h2>
         <% if (currentUser) { %>
         <form action="/campgrounds/<%=campground._id%>/reviews" method="POST" class="mb-3 validated-form" novalidate>
-            <!-- <div class="mb-3">
-                <label class="form-label" for="rating">Rating</label>
-                <input class="form-range" type="ßrange" min="1" max="5" name="review[rating]" id="rating">
-            </div> -->
             <div class="mb-3">
                 <fieldset class="starability-basic">
                     <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />

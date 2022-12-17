@@ -17,16 +17,6 @@
                     Looks good!
                 </div>
             </div>
-            <!-- <div class="mb-3">
-                <label class="form-label" for="image">Image URL</label>
-                <input class="form-control" type="text" id="image" name="campground[image]" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div> -->
-            <!-- <div class="mb-3">
-                <input type="file" name="image" id="" multiple>
-            </div> -->
             <div class="mb-3">
                 <label for="price" class="form-label">Campground Price</label>
                 <div class="input-group">
@@ -42,6 +32,45 @@
                 <textarea class="form-control" type="text" id="description" name="campground[description]" required></textarea>
                 <div class="valid-feedback">
                     Looks good!
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Amenities</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="campground[options][bathrooms]" value="true" id="bathrooms">
+                    <label class="form-check-label" for="bathrooms">
+                        <%-icons.bathrooms%>Bathrooms
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="campground[options][electricity]" value="true" id="electricity">
+                    <label class="form-check-label" for="electricity">
+                        <%-icons.electricity%>Electricity
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="campground[options][water]" value="true" id="water">
+                    <label class="form-check-label" for="water">
+                        <%-icons.water%>Water
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="campground[options][shop]" value="true" id="shop">
+                    <label class="form-check-label" for="shop">
+                        <%-icons.shop%>Shop
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="campground[options][rvHookup]" value="true" id="rvHookup">
+                    <label class="form-check-label" for="rvHookup">
+                        <%-icons.rvHookup%>RV Hookup
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="campground[options][petFriendly]" value="true" id="petFriendly">
+                    <label class="form-check-label" for="petFriendly">
+                        <%-icons.petFriendly%>Pet Friendly
+                    </label>
                 </div>
             </div>
             <div class="mb-3">
